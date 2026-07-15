@@ -4,9 +4,11 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import api from '../lib/api';
 
 export interface User {
-  id: number;
-  username: string;
-  email: string;
+  id_utilis: number;
+  nom_utilis: string;
+  prenom_utilis?: string;
+  email_utilis: string;
+  role: 'admin' | 'utilisateur';
 }
 
 interface AuthContextType {
@@ -56,6 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchProfile();
   }, []);
 
@@ -66,7 +69,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (res.data.token) {
         localStorage.setItem('token', res.data.token);
       }
-      await fetchProfile();
+      await  
+    fetchProfile();
     } catch (err) {
       setLoading(false);
       throw err;
